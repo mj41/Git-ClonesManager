@@ -1,4 +1,5 @@
-Git-ClonesManager
+Git::ClonesManager
 =================
 
-Git::ClonesManager - Manage and provide simple API over bare clones of Git repositories
+Manage and provide simple API over bare clones of Git repositories.
+
