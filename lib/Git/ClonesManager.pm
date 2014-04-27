@@ -3,7 +3,6 @@ package Git::ClonesManager;
 use strict;
 use warnings;
 use Carp qw(carp croak verbose);
-use FindBin qw();
 
 use File::Spec;
 use Git::Repository;
