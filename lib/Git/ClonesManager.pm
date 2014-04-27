@@ -84,9 +84,15 @@ sub clone_or_update {
 
 	if ( -d $work_tree ) {
 		my $repo = Git::Repository->new( git_dir => $work_tree );
-		print "Running 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 3;
-		my $output = $repo->run( 'fetch', '--all' );
-		print "'git fetch ...' output: ".$output."\n" if $self->{vl} >= 7;
+
+		if ( $args{skip_fetch} ) {
+			print "Skipping 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 3;
+		} else {
+			print "Running 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 3;
+			my $output = $repo->run( 'fetch', '--all' );
+			print "'git fetch ...' output: ".$output."\n" if $self->{vl} >= 7;
+		}
+
 		return $repo;
 	}
 
@@ -94,6 +100,10 @@ sub clone_or_update {
 	return Git::Repository->new( git_dir => $work_tree );
 }
 
+# Parameters:
+#   repo_url
+#   skip_fetch
+#
 sub get_repo_obj {
 	my ( $self, $project_alias, %args ) = @_;
 
@@ -102,7 +112,7 @@ sub get_repo_obj {
 	croak "Project with alias '$project_alias' not found (and no 'repo_url' provided).\n"
 		if (not -d $work_tree) && !$args{repo_url};
 
-	return $self->clone_or_update( $project_alias, $work_tree );
+	return $self->clone_or_update( $project_alias, $work_tree, %args );
 }
 
 1;
