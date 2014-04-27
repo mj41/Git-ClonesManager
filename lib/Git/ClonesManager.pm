@@ -80,7 +80,7 @@ sub add_project {
 }
 
 sub clone_or_update {
-	my ( $self, $project_alias, $repo_url, $work_tree ) = @_;
+	my ( $self, $project_alias, $work_tree, %args ) = @_;
 	$work_tree = $self->project_alias_to_work_tree( $project_alias ) unless $work_tree;
 
 	if ( -d $work_tree ) {
@@ -91,19 +91,19 @@ sub clone_or_update {
 		return $repo;
 	}
 
-	$self->add_project( $project_alias, $repo_url );
+	$self->add_project( $project_alias, $args{repo_url} );
 	return Git::Repository->new( git_dir => $work_tree );
 }
 
 sub get_repo_obj {
-	my ( $self, $project_alias, $repo_url ) = @_;
+	my ( $self, $project_alias, %args ) = @_;
 
 	my $work_tree = $self->project_alias_to_work_tree( $project_alias );
 
 	croak "Project with alias '$project_alias' not found (and no 'repo_url' provided).\n"
-		if (not -d $work_tree) && !$repo_url;
+		if (not -d $work_tree) && !$args{repo_url};
 
-	return $self->clone_or_update( $project_alias, $repo_url, $work_tree );
+	return $self->clone_or_update( $project_alias, $work_tree );
 }
 
 1;

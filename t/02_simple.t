@@ -31,7 +31,7 @@ describe "base flow" => sub {
 			'Git::Repository',
 			run => sub { push @$run_args, [ 'run_sub', @_ ]; }
 		);
-		$cm_obj->get_repo_obj($test_project_alias, 'git.somerepo.url');
+		$cm_obj->get_repo_obj($test_project_alias, repo_url => 'git.somerepo.url');
 		is( $run_args->[0][0], 'run_sub', 'GR->run sub called' );
 		is( $run_args->[0][2], 'clone', 'GR->...(clone,...) sub arg provided' );
 	};
