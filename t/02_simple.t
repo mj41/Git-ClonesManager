@@ -8,7 +8,7 @@ use base qw(Test::Spec);
 use Test::MockObject;
 
 use Git::ClonesManager;
-use File::Temp ;
+use File::Temp ();
 
 my $tmp_dir = File::Temp::tempdir( CLEANUP => 1 );
 ok( (-d $tmp_dir), 'tmp dir created' );
@@ -40,7 +40,7 @@ describe "base flow" => sub {
 		$cm_obj->get_repo_obj($test_project_alias);
 		is( $gr_mock->call_pos(1), 'run', 'GR->run method called' );
 		is( $gr_mock->call_args_pos(1,2), 'fetch', 'GR->...(fetch, ...) method arg provided' );
-	}
+	};
 
 };
 

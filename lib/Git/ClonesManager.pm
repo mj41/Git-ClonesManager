@@ -86,9 +86,9 @@ sub clone_or_update {
 		my $repo = Git::Repository->new( git_dir => $work_tree );
 
 		if ( $args{skip_fetch} ) {
-			print "Skipping 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 3;
+			print "Skipping 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 4;
 		} else {
-			print "Running 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 3;
+			print "Running 'git fetch ...' for '$project_alias'.\n" if $self->{vl} >= 4;
 			my $output = $repo->run( 'fetch', '--all' );
 			print "'git fetch ...' output: ".$output."\n" if $self->{vl} >= 7;
 		}
