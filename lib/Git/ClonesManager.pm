@@ -34,7 +34,7 @@ sub new {
 sub validate_project_alias {
 	my ( $self, $project_alias ) = @_;
 
-	my $allowed = 'a-zA-Z0-9_-';
+	my $allowed = 'a-zA-Z0-9_\\-\\.';
 	croak "Project alias '$project_alias' is not valid. Only $allowed allowed.\n"
 		unless $project_alias =~ m/^[$allowed]+$/;
 }
